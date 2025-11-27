@@ -5,180 +5,530 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Profissional de TI — Apresentação + Seletor</title>
   <style>
-    :root{--bg:#0f1720;--card:#0b1220;--accent:#06b6d4;--text:#e6eef6}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:linear-gradient(180deg,#93d3b9 0%, #1a7c4d 100%);color:var(--text)}
-    header{padding:24px 28px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:16px}
-    header h1{margin:0;font-size:18px}
-    .container{max-width:1100px;margin:28px auto;padding:20px}
-    /* Slides */
-    .slides{display:grid;grid-template-columns:1fr 360px;gap:20px}
-    .deck{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.7)}
-    .slide{min-height:220px;padding:18px;border-radius:8px;background:transparent;margin-bottom:12px}
-    .slide h2{margin-top:0}
-    .controls{display:flex;gap:8px;align-items:center}
-    button{background:var(--accent);border:none;color:#022;padding:10px 12px;border-radius:8px;cursor:pointer}
-    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
-    /* Quiz */
-    .quiz{background:linear-gradient(180deg,#12674c,);padding:18px;border-radius:12px}
-    .q{margin-bottom:14px}
-    .q label{display:block;margin-bottom:6px}
-    .range{width:100%}
-    .result{margin-top:14px;padding:12px;border-radius:8px;background:#0e563f}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:6px 8px;border-radius:999px;background:rgba(3, 79, 17, 0.03)}
-    footer{margin-top:22px;text-align:center;color:rgba(255,255,255,0.6);font-size:13px}
-    @media (max-width:900px){.slides{grid-template-columns:1fr;}.deck{order:2}}
+    :root{
+      --bg:#0f1720;
+      --card:#0b1220;
+      --accent:#00e676; /* verde vibrante para destacar */
+      --text:#e6eef6;
+      --range:#19ff88; /* cor das linhas de pontuação */
+      --gradient-start: #5fe8a9;
+      --gradient-end: #0f8f4f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body{
+      font-family: 'Inter', system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+      margin:0;
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+  
+  a {
+    color: #1c4f33;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase; /* Torna ainda mais impactante */
+    letter-spacing: 1px;
+}
+
+a:hover {
+    color: #39FF14;
+    text-shadow: 0 0 15px #00FF00;
+}
+  
+
+    header{
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(11, 18, 32, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    header h1{
+      margin:0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Layout principal */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .presentation {
+      background: rgba(0, 0, 0, 0.20);
+      padding: 24px;
+      border-radius: 14px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .presentation h2 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 22px;
+    }
+
+    .quiz {
+      background: rgba(0, 0, 0, 0.20);
+      padding: 24px;
+      border-radius: 14px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .quiz h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    .q {
+      margin-bottom: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .q:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .q label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .range-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .range-value {
+      min-width: 30px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* Slider personalizado */
+    .range{
+      width: 100%;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.25);
+      outline: none;
+    }
+
+    .range::-webkit-slider-thumb{
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--range);
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .range::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(25, 255, 136, 0.6);
+    }
+
+    button{
+      background: var(--accent);
+      border: none;
+      color: #022;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+    }
+
+    button.secondary{
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+    }
+
+    button.secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .result{
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 10px;
+      background: rgba(12, 107, 68, 0.7);
+      border-left: 4px solid var(--accent);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-item {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .result-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .result-score {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    footer{
+      margin-top: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      padding: 20px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+  .alunos {
+    color: #708090; /* SlateGray - cinza com tom esverdeado */
+    font-family: Arial, sans-serif;
+    padding: 15px;
+    background-color: #f8f9f8; /* Fundo bem claro esverdeado */
+    border-radius: 8px;
+    border-left: 4px solid #708090;
+}
   </style>
 </head>
 <body>
   <header>
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#063447"></rect><path d="M6 12h12M6 8h12M6 16h8" stroke="#a7f3d0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="24" rx="6" fill="#063447"></rect>
+      <path d="M6 12h12M6 8h12M6 16h8" stroke="#a7f3d0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
     <div>
       <h1>Profissional de TI — Apresentação & Seletor (algoritmo)</h1>
-      <div style="font-size:13px;color:rgba(255,255,255,0.6)">Use o painel à direita para simular um algoritmo de escolha de área.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7)">Simule suas preferências e veja as áreas recomendadas.</div>
     </div>
   </header>
 
-  
+  <main class="container">
+    <div class="main-content">
+      <section class="presentation">
+        <h2>Encontre sua área ideal em TI</h2>
+        <p>O mercado de Tecnologia da Informação oferece diversas oportunidades para profissionais com diferentes habilidades e interesses.</p>
+        
+        <p>Este seletor utiliza um algoritmo simples para analisar suas preferências e recomendar as áreas de TI que melhor se alinham com seu perfil.</p>
+        
+        <h3>Como funciona:</h3>
+        <ul>
+          <li>Ajuste os controles deslizantes conforme seu interesse em cada área</li>
+          <li>Clique em "Executar algoritmo" para ver suas recomendações</li>
+          <li>As três áreas com maior pontuação serão exibidas</li>
+        </ul>
+        
+        <p>Lembre-se: este é apenas um guia inicial. A melhor forma de descobrir sua vocação é através de experimentação prática e aprendizado contínuo!</p>
+        <div class="alunos">
+    <strong>Alunos:</strong><br>
+    Azumi<br>
+    Natália<br> 
+    Rakelly<br>
+    Richard<br>
+    Sara<br>
+    Yuri
+</div>
+      </section>
 
-      <aside class="deck quiz">
-        <h3>Seletor: algoritmo simples — responda e veja a área recomendada</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,0.7)">Ajuste os sliders conforme suas preferências e personalidade profissional.</p>
+      <aside class="quiz">
+        <h3>Seletor: algoritmo simples</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.8)">Ajuste os sliders conforme suas preferências.</p>
 
         <div class="q">
-          <label>1) Você gosta de programar e criar aplicações? (0 = não; 5 = muito)</label>
-          <input class="range" type="range" id="q-dev" min="0" max="5" value="3">
+          <label for="q-dev">1) Você gosta de programar?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-dev" min="0" max="5" value="3">
+            <span class="range-value" id="value-dev">3</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-dev" style="width: 60%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>2) Gosta de trabalhar com servidores, redes e infraestrutura?</label>
-          <input class="range" type="range" id="q-infra" min="0" max="5" value="2">
+          <label for="q-infra">2) Servidores, redes e infraestrutura?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-infra" min="0" max="5" value="2">
+            <span class="range-value" id="value-infra">2</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-infra" style="width: 40%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>3) Se interessa por segurança, descobrir falhas e proteger sistemas?</label>
-          <input class="range" type="range" id="q-sec" min="0" max="5" value="1">
+          <label for="q-sec">3) Segurança e análise de vulnerabilidades?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-sec" min="0" max="5" value="1">
+            <span class="range-value" id="value-sec">1</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-sec" style="width: 20%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>4) Gosta de números, estatística e trabalhar com grandes volumes de dados?</label>
-          <input class="range" type="range" id="q-dados" min="0" max="5" value="1">
+          <label for="q-dados">4) Estatística, dados e IA?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-dados" min="0" max="5" value="1">
+            <span class="range-value" id="value-dados">1</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-dados" style="width: 20%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>5) Curte automação, pipelines, integração e entrega contínua?</label>
-          <input class="range" type="range" id="q-devops" min="0" max="5" value="2">
+          <label for="q-devops">5) Automação, pipelines e CI/CD?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-devops" min="0" max="5" value="2">
+            <span class="range-value" id="value-devops">2</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-devops" style="width: 40%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>6) Prefere interfaces, design e a experiência do usuário?</label>
-          <input class="range" type="range" id="q-ux" min="0" max="5" value="2">
+          <label for="q-ux">6) UX, design e experiência?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-ux" min="0" max="5" value="2">
+            <span class="range-value" id="value-ux">2</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-ux" style="width: 40%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>7) Gosta de garantir qualidade, escrever testes e automatizar verificações?</label>
-          <input class="range" type="range" id="q-qa" min="0" max="5" value="1">
+          <label for="q-qa">7) Testes, qualidade e automação?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-qa" min="0" max="5" value="1">
+            <span class="range-value" id="value-qa">1</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-qa" style="width: 20%"></div>
+          </div>
         </div>
+        
         <div class="q">
-          <label>8) Gosta de liderar, coordenar equipes ou pensar em arquitetura/estratégia?</label>
-          <input class="range" type="range" id="q-mgmt" min="0" max="5" value="1">
+          <label for="q-mgmt">8) Liderança, gestão ou arquitetura?</label>
+          <div class="range-container">
+            <input class="range" type="range" id="q-mgmt" min="0" max="5" value="1">
+            <span class="range-value" id="value-mgmt">1</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-mgmt" style="width: 20%"></div>
+          </div>
         </div>
 
-        <div style="display:flex;gap:8px;margin-top:6px">
-          <button id="run">Executar algoritmo</button>
-          <button class="secondary" id="reset">Resetar</button>
+        <div class="buttons">
+          <button id="run">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z" fill="#022"/>
+            </svg>
+            Executar algoritmo
+          </button>
+          <button class="secondary" id="reset">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"/>
+            </svg>
+            Resetar
+          </button>
         </div>
 
         <div id="output" class="result" aria-live="polite">
           <strong>Resultado:</strong>
-          <div id="recos" style="margin-top:8px;color:rgba(255,255,255,0.9)">Nenhuma execução. Clique em "Executar algoritmo".</div>
+          <div id="recos" style="margin-top:12px;color:rgba(255,255,255,0.95)">
+            Nenhuma execução ainda. Ajuste os controles e clique em "Executar algoritmo" para ver suas recomendações.
+          </div>
         </div>
-
-        <footer>
-          Sugestão rápida: experimente projetos práticos na área recomendada e faça cursos de curta duração.
-        </footer>
       </aside>
     </div>
-
-    <div style="margin-top:18px;text-align:center;color:rgba(255,255,255,0.7);font-size:13px">Este ficheiro contém uma apresentação curta e um seletor interativo — edite perguntas e pesos conforme desejar.</div>
   </main>
 
-  <script>
-    // Mapeamento simples de áreas com pesos base
-    const areas = {
-      'Desenvolvimento de Software': {keys:['dev','ux','qa'], weight: [0.6,0.2,0.2]},
-      'Infraestrutura / Redes': {keys:['infra','devops'], weight: [0.7,0.3]},
-      'Segurança da Informação': {keys:['sec','infra','dev'], weight: [0.7,0.2,0.1]},
-      'Dados & Ciência de Dados / IA': {keys:['dados','dev','ux'], weight: [0.7,0.2,0.1]},
-      'DevOps / SRE': {keys:['devops','infra','dev'], weight: [0.6,0.3,0.1]},
-      'Qualidade & Testes / Automação': {keys:['qa','dev','devops'], weight: [0.6,0.2,0.2]},
-      'UX / UI / Produto': {keys:['ux','dev','mgmt'], weight: [0.7,0.2,0.1]},
-      'Suporte e Operações': {keys:['infra','mgmt','qa'], weight: [0.6,0.2,0.2]},
-      'Gestão / Arquitetura': {keys:['mgmt','dev','infra'], weight: [0.6,0.2,0.2]}
+  <footer>
+    <p>Desenvolvido para auxiliar na identificação de áreas de interesse em TI • Este é um guia inicial, não uma avaliação definitiva</p>
+     <br> 
+    <div class="vitor"> 
+      Site feito por <a href="https://github.com/VitorMoreira44">VitorMoreira44</a>.
+    </div>
+  </footer>
+
+<script>
+  const areas = {
+    'Desenvolvimento de Software': {keys:['dev','ux','qa'], weight: [0.6,0.2,0.2]},
+    'Infraestrutura / Redes': {keys:['infra','devops'], weight: [0.7,0.3]},
+    'Segurança da Informação': {keys:['sec','infra','dev'], weight: [0.7,0.2,0.1]},
+    'Dados & Ciência de Dados / IA': {keys:['dados','dev','ux'], weight: [0.7,0.2,0.1]},
+    'DevOps / SRE': {keys:['devops','infra','dev'], weight: [0.6,0.3,0.1]},
+    'Qualidade & Testes / Automação': {keys:['qa','dev','devops'], weight: [0.6,0.2,0.2]},
+    'UX / UI / Produto': {keys:['ux','dev','mgmt'], weight: [0.7,0.2,0.1]},
+    'Suporte e Operações': {keys:['infra','mgmt','qa'], weight: [0.6,0.2,0.2]},
+    'Gestão / Arquitetura': {keys:['mgmt','dev','infra'], weight: [0.6,0.2,0.2]}
+  };
+
+  // Atualizar valores dos sliders em tempo real
+  document.querySelectorAll('.range').forEach(slider => {
+    const id = slider.id;
+    const valueElement = document.getElementById(`value-${id.split('-')[1]}`);
+    const progressElement = document.getElementById(`progress-${id.split('-')[1]}`);
+    
+    slider.addEventListener('input', () => {
+      const value = slider.value;
+      valueElement.textContent = value;
+      const percentage = (value / 5) * 100;
+      progressElement.style.width = `${percentage}%`;
+    });
+  });
+
+  function readInputs(){
+    return {
+      dev: Number(document.getElementById('q-dev').value),
+      infra: Number(document.getElementById('q-infra').value),
+      sec: Number(document.getElementById('q-sec').value),
+      dados: Number(document.getElementById('q-dados').value),
+      devops: Number(document.getElementById('q-devops').value),
+      ux: Number(document.getElementById('q-ux').value),
+      qa: Number(document.getElementById('q-qa').value),
+      mgmt: Number(document.getElementById('q-mgmt').value)
     };
+  }
 
-    function readInputs(){
-      return {
-        dev: Number(document.getElementById('q-dev').value),
-        infra: Number(document.getElementById('q-infra').value),
-        sec: Number(document.getElementById('q-sec').value),
-        dados: Number(document.getElementById('q-dados').value),
-        devops: Number(document.getElementById('q-devops').value),
-        ux: Number(document.getElementById('q-ux').value),
-        qa: Number(document.getElementById('q-qa').value),
-        mgmt: Number(document.getElementById('q-mgmt').value)
-      };
-    }
-
-    function scoreAreas(inputs){
-      const results = [];
-      for(const [area,desc] of Object.entries(areas)){
-        let s = 0;
-        for(let i=0;i<desc.keys.length;i++){
-          const k = desc.keys[i];
-          s += (inputs[k]||0) * desc.weight[i];
-        }
-        // small bonus: if dev high and area is dev, boost
-        results.push({area,score:Math.round(s*100)/100});
+  function scoreAreas(inputs){
+    const results = [];
+    for(const [area,desc] of Object.entries(areas)){
+      let s=0;
+      for(let i=0;i<desc.keys.length;i++){
+        const k=desc.keys[i];
+        s += (inputs[k]||0) * desc.weight[i];
       }
-      return results.sort((a,b)=>b.score-a.score);
+      results.push({area,score:Math.round(s*100)/100});
     }
+    return results.sort((a,b)=>b.score-a.score);
+  }
 
-    function explain(areaName, inputs){
-      // curto texto explicativo por área
-      const txt = {
-        'Desenvolvimento de Software':'Ideal se você gosta de lógica, construir aplicações e programar. Comece: projetos web simples, Git, curso de JS/Python e portfolio.',
-        'Infraestrutura / Redes':'Ideal para quem curte servidores, redes, Linux e cloud. Comece: Linux básico, redes, AWS/GCP fundamentos, laboratórios práticos.',
-        'Segurança da Informação':'Para quem gosta de investigar e proteger sistemas. Comece: fundamentos de segurança, OWASP, laboratórios de pentest e CTFs.',
-        'Dados & Ciência de Dados / IA':'Se interessa por estatística e modelos. Comece: SQL, Python, pandas, ML básico, projetos com conjuntos de dados públicos.',
-        'DevOps / SRE':'Foco em automação, pipelines e confiabilidade. Comece: GitHub Actions/CI, Docker, Kubernetes, infraestrutura como código.',
-        'Qualidade & Testes / Automação':'Foco em testes e qualidade. Comece: testes unitários, frameworks de automação, integração contínua.',
-        'UX / UI / Produto':'Para quem gosta de design e experiências. Comece: fundamentos de UX, ferramentas (Figma), HTML/CSS básico e portfólio de interfaces.',
-        'Suporte e Operações':'Atuação operacional, suporte técnico. Comece: sistemas operacionais, troubleshooting, atendimento e monitoração.',
-        'Gestão / Arquitetura':'Para quem quer liderar e projetar soluções. Comece: fundamentos de arquitetura, comunicação, frameworks de gestão ágil.'
-      };
-      return txt[areaName] || '';
-    }
+  function explain(area){
+    const t={
+      'Desenvolvimento de Software':'Para quem gosta de lógica e criação de aplicações.',
+      'Infraestrutura / Redes':'Para quem curte servidores, redes e cloud.',
+      'Segurança da Informação':'Para quem gosta de investigar e proteger sistemas.',
+      'Dados & Ciência de Dados / IA':'Para quem curte estatística e grandes volumes de dados.',
+      'DevOps / SRE':'Ideal para quem gosta de automação e pipelines.',
+      'Qualidade & Testes / Automação':'Para quem busca qualidade e automação de testes.',
+      'UX / UI / Produto':'Para quem curte design e experiências.',
+      'Suporte e Operações':'Para resolver problemas e manter operações.',
+      'Gestão / Arquitetura':'Para liderar times e projetar soluções.'
+    };
+    return t[area];
+  }
 
-    document.getElementById('run').addEventListener('click', ()=>{
-      const inputs = readInputs();
-      const results = scoreAreas(inputs);
-      const top = results.slice(0,3);
-      const recosEl = document.getElementById('recos');
-      recosEl.innerHTML = '';
+  document.getElementById('run').addEventListener('click',()=>{
+    const results=scoreAreas(readInputs());
+    const top=results.slice(0,3);
+    const recos=document.getElementById('recos');
+    recos.innerHTML='';
 
-      top.forEach((r,idx)=>{
-        const div = document.createElement('div');
-        div.style.marginBottom = '10px';
-        div.innerHTML = `<strong>#${idx+1} — ${r.area} (score: ${r.score})</strong><br>${explain(r.area)} `;
-        recosEl.appendChild(div);
-      });
+    const emojis=['🥇','🥈','🥉'];
 
-      // dicas práticas
-      const tips = document.createElement('div');
-      tips.style.marginTop = '8px';
-      tips.innerHTML = `<em>Dicas:</em> Faça um projeto prático na área recomendada; crie um repositório público; busque cursos práticos e participe da comunidade.`;
-      recosEl.appendChild(tips);
+    top.forEach((r,i)=>{
+      const div=document.createElement('div');
+      div.className = 'result-item';
+      div.innerHTML = `
+        <strong>${emojis[i]} ${r.area} <span class="result-score">${r.score}</span></strong><br>
+        <div style="font-size:13px;margin-top:4px">${explain(r.area)}</div>
+      `;
+      recos.appendChild(div);
     });
+  });
 
-    document.getElementById('reset').addEventListener('click', ()=>{
-      ['q-dev','q-infra','q-sec','q-dados','q-devops','q-ux','q-qa','q-mgmt'].forEach(id=>document.getElementById(id).value=1);
-      document.getElementById('recos').innerText = 'Nenhuma execução. Clique em "Executar algoritmo".';
+  document.getElementById('reset').addEventListener('click',()=>{
+    document.querySelectorAll('.range').forEach(r => {
+      r.value = 1;
+      const id = r.id;
+      const valueElement = document.getElementById(`value-${id.split('-')[1]}`);
+      const progressElement = document.getElementById(`progress-${id.split('-')[1]}`);
+      valueElement.textContent = '1';
+      progressElement.style.width = '20%';
     });
-  </script>
+    document.getElementById('recos').innerHTML = 'Nenhuma execução ainda. Ajuste os controles e clique em "Executar algoritmo" para ver suas recomendações.';
+  });
+</script>
+
 </body>
 </html>
